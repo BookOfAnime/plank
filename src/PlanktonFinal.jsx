@@ -1,23 +1,23 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import React, { useRef, useEffect } from 'react'
+import { useGLTF, useAnimations, useThree } from '@react-three/drei'
 import * as THREE from 'three'
 
 function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/planktonFinal.glb')
   const { actions, names } = useAnimations(animations, group)
+  const { camera } = useThree()
 
   useEffect(() => {
-    const desiredAnimations = ['dance', 'withme', 'cancan']
+    const desiredAnimations = ['dance', 'withme', 'cancan', 'jumpdown']
     const availableDesiredAnimations = names.filter(name => desiredAnimations.includes(name))
     setAvailableAnimations(availableDesiredAnimations)
-    
-    // Play jumpdown animation immediately
-    if (actions.jumpdown) {
-      actions.jumpdown.reset().play()
-      actions.jumpdown.clampWhenFinished = true
-      actions.jumpdown.setLoop(THREE.LoopOnce)
+
+    // Play 'dance' animation initially
+    if (actions.dance) {
+      actions.dance.reset().play()
+      actions.dance.clampWhenFinished = true
+      actions.dance.setLoop(THREE.LoopOnce)
     }
   }, [actions, names, setAvailableAnimations])
 
@@ -30,15 +30,24 @@ function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
     }
   }, [currentAnimation, actions])
 
-  // Adjust initial camera position
-  const { camera } = useThree()
   useEffect(() => {
-    camera.position.set(0, 5, 10)
-    camera.lookAt(0, 0, 0)
-  }, [camera])
+    if (group.current) {
+      // Adjust initial camera position to look at Plankton
+      const boundingBox = new THREE.Box3().setFromObject(group.current)
+      const center = boundingBox.getCenter(new THREE.Vector3())
+      const size = boundingBox.getSize(new THREE.Vector3())
+      const maxDim = Math.max(size.x, size.y, size.z)
+      const fov = camera.fov * (Math.PI / 180)
+      let cameraZ = Math.abs(maxDim / 2 * Math.tan(fov * 2))
+
+      camera.position.set(center.x, center.y, cameraZ * 2)
+      camera.lookAt(center)
+      camera.updateProjectionMatrix()
+    }
+  }, [camera, group])
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group}>
       <group name="Scene">
         <group name="Sketchfab_model" position={[0, 0, 73.967]} rotation={[-Math.PI / 2, 0, 0]} scale={0.055}>
           <group name="Chum_BucketFBX" rotation={[Math.PI / 2, 0, 0]}>
@@ -85,4 +94,4 @@ function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
   )
 }
 
-useGLTF.preload('/planktonFinal.glb')
+export default PlanktonModel

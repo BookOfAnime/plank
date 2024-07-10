@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, Suspense } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
-import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import { useGLTF, useAnimations, OrbitControls, Loader } from '@react-three/drei'
 import * as THREE from 'three'
 
 function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
@@ -33,7 +33,7 @@ function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
   // Adjust initial camera position
   const { camera } = useThree()
   useEffect(() => {
-    camera.position.set(0, 5, 10)
+    camera.position.set(0, 1, 15)
     camera.lookAt(0, 0, 0)
   }, [camera])
 
@@ -102,31 +102,27 @@ function InfoCard({ onClose }) {
       maxHeight: '80vh',
       overflowY: 'auto'
     }}>
-      <h2 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Plankton 3D Model</h2>
+      <h2 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>PlankTON</h2>
+      
       <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#4CAF50' }}>Features:</h3>
+        <h3 style={{ color: '#4CAF50' }}>Roadmap:</h3>
         <ul style={{ paddingLeft: '20px', color: '#555' }}>
-          <li>High-quality 3D model of Plankton from SpongeBob SquarePants</li>
-          <li>Four unique animations: Dance, With Me, Can Can, and Jump Down</li>
-          <li>Fully rigged for smooth animations</li>
-          <li>Optimized for real-time rendering in web browsers</li>
+          <li>Q1 2024: Initial launch and community building</li>
+          <li>Q2 2024: Release of first interactive features</li>
+          <li>Q3 2024: Expansion of animation library</li>
+          <li>Q4 2024: Full integration with web-based games</li>
         </ul>
       </div>
+      
       <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#4CAF50' }}>Technical Specifications:</h3>
-        <ul style={{ paddingLeft: '20px', color: '#555' }}>
-          <li>Polygon count: Approximately 10,000 triangles</li>
-          <li>Texture resolution: 2048x2048</li>
-          <li>File format: glTF 2.0</li>
-          <li>Rigging: Skeletal animation with 20 bones</li>
-        </ul>
+        <h3 style={{ color: '#4CAF50' }}>Meme Section:</h3>
+        <div style={{ paddingLeft: '20px', color: '#555' }}>
+          <img src="/path/to/meme1.jpg" alt="Meme 1" style={{ width: '100%', marginBottom: '10px' }} />
+          <img src="/path/to/meme2.jpg" alt="Meme 2" style={{ width: '100%', marginBottom: '10px' }} />
+          <img src="/path/to/meme3.jpg" alt="Meme 3" style={{ width: '100%', marginBottom: '10px' }} />
+        </div>
       </div>
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#4CAF50' }}>Usage:</h3>
-        <p style={{ color: '#555' }}>
-          This 3D model is perfect for web-based games, interactive websites, or educational applications featuring SpongeBob SquarePants characters. The various animations allow for diverse interactions and engaging user experiences.
-        </p>
-      </div>
+      
       <button 
         onClick={onClose}
         style={{
@@ -184,11 +180,13 @@ function App() {
       >
         <OrbitControls />
         <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <PlanktonModel 
-          setAvailableAnimations={setAvailableAnimations} 
-          currentAnimation={currentAnimation}
-        />
+        <directionalLight position={[10, 10, 5]} intensity={10} />
+        <Suspense fallback={null}>
+          <PlanktonModel 
+            setAvailableAnimations={setAvailableAnimations} 
+            currentAnimation={currentAnimation}
+          />
+        </Suspense>
       </Canvas>
       <div style={{
         position: 'absolute',
@@ -249,6 +247,7 @@ function App() {
         </button>
       </div>
       {showInfo && <InfoCard onClose={() => setShowInfo(false)} />}
+      <Loader /> {/* Add Loader component here */}
     </div>
   )
 }

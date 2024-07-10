@@ -28,7 +28,7 @@ export function Loader({ onEnter }) {
         marginBottom: '20px',
         textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
       }}>
-        Welcome to Plankton's Lab!
+        Welcome to The TONBucket
       </div>
       <div style={{
         width: '200px',
@@ -63,7 +63,7 @@ export function Loader({ onEnter }) {
         margin: '20px 0',
         textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
       }}>
-        Loading evil plans... {progress.toFixed(0)}%
+        Loading PlankTONs evil plans... {progress.toFixed(0)}%
       </div>
       <div style={{
         width: '300px',
