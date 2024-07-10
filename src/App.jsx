@@ -92,49 +92,113 @@ function InfoCard({ onClose }) {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
       backdropFilter: 'blur(10px)',
       padding: '30px',
-      borderRadius: '15px',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-      maxWidth: '500px',
+      borderRadius: '20px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+      maxWidth: '600px',
       width: '90%',
       maxHeight: '80vh',
-      overflowY: 'auto'
+      overflowY: 'auto',
+      color: '#333',
+      fontFamily: 'Arial, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }}>
-      <h2 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>PlankTON</h2>
+      <h2 style={{ 
+        color: '#4CAF50', 
+        marginBottom: '20px', 
+        textAlign: 'center',
+        fontSize: '2.5em',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        PlankTON
+      </h2>
       
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#4CAF50' }}>Roadmap:</h3>
-        <ul style={{ paddingLeft: '20px', color: '#555' }}>
-          <li>Q1 2024: Initial launch and community building</li>
-          <li>Q2 2024: Release of first interactive features</li>
-          <li>Q3 2024: Expansion of animation library</li>
-          <li>Q4 2024: Full integration with web-based games</li>
+      <div style={{ 
+        marginBottom: '30px', 
+        backgroundColor: '#f0f0f0', 
+        padding: '20px', 
+        borderRadius: '15px',
+        width: '100%'
+      }}>
+        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '1.8em' }}>Roadmap</h3>
+        <ul style={{ 
+          paddingLeft: '20px', 
+          color: '#555', 
+          listStyleType: 'none' 
+        }}>
+          {[
+            { date: 'July 10th', event: 'Initial launch and community building' },
+            { date: 'July 20th', event: 'Release of first interactive features' },
+            { date: 'August 2024', event: 'Expansion of animation library' },
+            { date: 'Q4 2024', event: 'Full integration with web-based games' }
+          ].map((item, index) => (
+            <li key={index} style={{ 
+              marginBottom: '15px', 
+              display: 'flex', 
+              alignItems: 'center' 
+            }}>
+              <span style={{ 
+                fontWeight: 'bold', 
+                marginRight: '10px', 
+                color: '#4CAF50',
+                minWidth: '100px' 
+              }}>
+                {item.date}:
+              </span>
+              {item.event}
+            </li>
+          ))}
         </ul>
       </div>
       
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ color: '#4CAF50' }}>Meme Section:</h3>
-        <div style={{ paddingLeft: '20px', color: '#555' }}>
-          <img src="/path/to/meme1.jpg" alt="Meme 1" style={{ width: '100%', marginBottom: '10px' }} />
-          <img src="/path/to/meme2.jpg" alt="Meme 2" style={{ width: '100%', marginBottom: '10px' }} />
-          <img src="/path/to/meme3.jpg" alt="Meme 3" style={{ width: '100%', marginBottom: '10px' }} />
+      <div style={{ marginBottom: '30px', width: '100%' }}>
+        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '1.8em', textAlign: 'center' }}>Meme Gallery</h3>
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          justifyContent: 'center', 
+          gap: '15px' 
+        }}>
+          {['banner.png', 'logo.gif', 'converter.gif'].map((img, index) => (
+            <img 
+              key={index}
+              src={img} 
+              alt={`Meme ${index + 1}`} 
+              style={{ 
+                width: 'calc(33.33% - 10px)', 
+                borderRadius: '10px', 
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                transition: 'transform 0.3s ease',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+            />
+          ))}
         </div>
       </div>
       
       <button 
         onClick={onClose}
         style={{
-          padding: '10px 20px',
+          padding: '12px 24px',
           backgroundColor: '#3498db',
           color: 'white',
           border: 'none',
-          borderRadius: '5px',
+          borderRadius: '25px',
           cursor: 'pointer',
-          display: 'block',
-          margin: '0 auto'
+          fontSize: '16px',
+          fontWeight: 'bold',
+          transition: 'all 0.3s ease',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          outline: 'none'
         }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#2980b9'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#3498db'}
       >
         Close
       </button>
