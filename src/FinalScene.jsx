@@ -2,32 +2,34 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 
-export function FinalScene(props) {
+export function FinalScene({ startAnimation }) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/finalScene.glb')
-  const { actions, names } = useAnimations(animations, group)
+  const { actions } = useAnimations(animations, group)
   const [currentAnimation, setCurrentAnimation] = useState(null)
-  console.log(names)
+  const [hasStarted, setHasStarted] = useState(false)
 
   useEffect(() => {
-    // Play the 'jumpdown' animation when the component mounts
-    if (actions.jumpdown) {
-      actions.jumpdown.reset().play()
-      actions.jumpdown.clampWhenFinished = true
-      actions.jumpdown.loop = THREE.LoopOnce
-      setCurrentAnimation('Action')
+    if (startAnimation && !hasStarted) {
+      // Only start the animation if it hasn't been started before
+      if (actions.jumpdown) {
+        actions.jumpdown.reset().play()
+        actions.jumpdown.clampWhenFinished = true
+        actions.jumpdown.loop = THREE.LoopOnce
+        setCurrentAnimation('jumpdown')
+      }
+      setHasStarted(true)
     }
-  }, [actions])
+  }, [actions, startAnimation, hasStarted])
 
   useEffect(() => {
-    // Stop all animations and play the current one
-    Object.values(actions).forEach(action => action.stop())
-    if (currentAnimation && actions[currentAnimation]) {
+    if (startAnimation && currentAnimation && actions[currentAnimation]) {
+      Object.values(actions).forEach(action => action.stop())
       actions[currentAnimation].reset().play()
       actions[currentAnimation].clampWhenFinished = true
       actions[currentAnimation].loop = THREE.LoopOnce
     }
-  }, [currentAnimation, actions])
+  }, [currentAnimation, actions, startAnimation])
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -802,10 +804,8 @@ export function FinalScene(props) {
     </group>
   )
 }
-
 useGLTF.preload('/finalScene.glb')
 
-// Export the setCurrentAnimation function to be used by the menu
 export const useAnimationControl = () => {
   const [currentAnimation, setCurrentAnimation] = useState(null)
   return { currentAnimation, setCurrentAnimation }
