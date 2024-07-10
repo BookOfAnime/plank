@@ -146,6 +146,8 @@ function App() {
   const [availableAnimations, setAvailableAnimations] = useState([])
   const [currentAnimation, setCurrentAnimation] = useState('dance')
   const [showInfo, setShowInfo] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef(null)
 
   // Add this style to remove default margins and padding
   useEffect(() => {
@@ -158,8 +160,21 @@ function App() {
       document.body.style.margin = null;
       document.body.style.padding = null;
       document.body.style.overflow = null;
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
     };
   }, []);
+
+  const toggleAudio = () => {
+    if (isPlaying) {
+      audioRef.current.pause()
+    } else {
+      audioRef.current.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
 
   return (
     <div style={{ 
@@ -168,6 +183,7 @@ function App() {
       position: 'relative', 
       overflow: 'hidden' 
     }}>
+      <audio ref={audioRef} src="/rolling.mp3" loop />
       <Canvas 
         style={{ 
           position: 'absolute', 
@@ -244,6 +260,25 @@ function App() {
           }}
         >
           ℹ️ Info
+        </button>
+        <button
+          onClick={toggleAudio}
+          style={{
+            margin: '0 10px',
+            padding: '12px 24px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            color: 'white',
+            backgroundColor: '#e74c3c',
+            border: 'none',
+            borderRadius: '25px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 0 10px #e74c3c',
+            outline: 'none'
+          }}
+        >
+          {isPlaying ? '🔈 Mute' : '🔊 Unmute'}
         </button>
       </div>
       {showInfo && <InfoCard onClose={() => setShowInfo(false)} />}
