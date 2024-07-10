@@ -85,6 +85,13 @@ function PlanktonModel({ setAvailableAnimations, currentAnimation }) {
   )
 }
 
+const fontStyle = `
+  @font-face {
+    font-family: 'KrustyBurger';
+    src: url('/kb.ttf') format('truetype');
+  }
+`;
+
 function InfoCard({ onClose }) {
   return (
     <div style={{
@@ -97,21 +104,22 @@ function InfoCard({ onClose }) {
       padding: '30px',
       borderRadius: '20px',
       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
-      maxWidth: '600px',
+      maxWidth: '800px',
       width: '90%',
       maxHeight: '80vh',
       overflowY: 'auto',
       color: '#333',
-      fontFamily: 'Arial, sans-serif',
+      fontFamily: 'KrustyBurger, Arial, sans-serif',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <style>{fontStyle}</style>
       <h2 style={{ 
         color: '#4CAF50', 
         marginBottom: '20px', 
         textAlign: 'center',
-        fontSize: '2.5em',
+        fontSize: '3em',
         textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
       }}>
         PlankTON
@@ -124,7 +132,22 @@ function InfoCard({ onClose }) {
         borderRadius: '15px',
         width: '100%'
       }}>
-        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '1.8em' }}>Roadmap</h3>
+        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '2em' }}>The Evil Plan</h3>
+        <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1.1em' }}>
+          Plankton, the tiny but ambitious owner of the Chum Bucket, has concocted his most ingenious plan yet to steal the secret Krabby PatTON formula. Leveraging the power of blockchain technology, Plankton has created PlankTON - a decentralized network of microscopic robots designed to infiltrate the Krusty Krab. These nano-bots, powered by TON, will work tirelessly to uncover the secret ingredients, all while operating under the radar of Mr. Krabs' watchful eye. With each PlankTON holder controlling a swarm of these robotic minions, Plankton believes he's finally found the key to unlocking the formula and achieving his dreams of culinary domination in Bikini Bottom!
+        </p>
+      </div>
+
+      
+
+      <div style={{ 
+        marginBottom: '30px', 
+        backgroundColor: '#f0f0f0', 
+        padding: '20px', 
+        borderRadius: '15px',
+        width: '100%'
+      }}>
+        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '2em' }}>Roadmap</h3>
         <ul style={{ 
           paddingLeft: '20px', 
           color: '#555', 
@@ -134,12 +157,14 @@ function InfoCard({ onClose }) {
             { date: 'July 10th', event: 'Initial launch and community building' },
             { date: 'July 20th', event: 'Release of first interactive features' },
             { date: 'August 2024', event: 'Expansion of animation library' },
-            { date: 'Q4 2024', event: 'Full integration with web-based games' }
+            { date: 'Q4 2024', event: 'Full integration with web-based games' },
+          
           ].map((item, index) => (
             <li key={index} style={{ 
               marginBottom: '15px', 
               display: 'flex', 
-              alignItems: 'center' 
+              alignItems: 'center',
+              fontSize: '1.1em'
             }}>
               <span style={{ 
                 fontWeight: 'bold', 
@@ -156,7 +181,7 @@ function InfoCard({ onClose }) {
       </div>
       
       <div style={{ marginBottom: '30px', width: '100%' }}>
-        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '1.8em', textAlign: 'center' }}>Meme Gallery</h3>
+        <h3 style={{ color: '#3498db', marginBottom: '15px', fontSize: '2em', textAlign: 'center' }}>Meme Gallery</h3>
         <div style={{ 
           display: 'flex', 
           flexWrap: 'wrap', 
@@ -181,6 +206,52 @@ function InfoCard({ onClose }) {
           ))}
         </div>
       </div>
+
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '20px',
+        marginBottom: '20px'
+      }}>
+        <a href="https://twitter.com/PlankTON" target="_blank" rel="noopener noreferrer" style={{
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px 20px',
+          backgroundColor: '#1DA1F2',
+          color: 'white',
+          textDecoration: 'none',
+          borderRadius: '20px',
+          fontWeight: 'bold',
+          transition: 'background-color 0.3s ease',
+          fontSize: '1.1em'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#0c85d0'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#1DA1F2'}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" style={{marginRight: '10px'}}>
+            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+          </svg>
+          Twitter
+        </a>
+        <a href="https://t.me/PlankTON" target="_blank" rel="noopener noreferrer" style={{
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px 20px',
+          backgroundColor: '#0088cc',
+          color: 'white',
+          textDecoration: 'none',
+          borderRadius: '20px',
+          fontWeight: 'bold',
+          transition: 'background-color 0.3s ease',
+          fontSize: '1.1em'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#006699'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#0088cc'}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" style={{marginRight: '10px'}}>
+            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+          </svg>
+          Telegram
+        </a>
+      </div>
       
       <button 
         onClick={onClose}
@@ -191,7 +262,7 @@ function InfoCard({ onClose }) {
           border: 'none',
           borderRadius: '25px',
           cursor: 'pointer',
-          fontSize: '16px',
+          fontSize: '1.2em',
           fontWeight: 'bold',
           transition: 'all 0.3s ease',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -205,7 +276,6 @@ function InfoCard({ onClose }) {
     </div>
   )
 }
-
 function App() {
   const [availableAnimations, setAvailableAnimations] = useState([])
   const [currentAnimation, setCurrentAnimation] = useState('dance')
