@@ -376,7 +376,7 @@ function InfoCard({ onClose }) {
             gap: "15px",
           }}
         >
-          {["banner.png", "logo.gif", "converter.gif"].map((img, index) => (
+          {["banner.png", "logo.gif", "converter.gif","KOTH_plankton.png", "MaxOverdrive.png","plank_krabs.jpg",'r2.png','r3.png','TwitterArt2.png' ].map((img, index) => (
             <img
               key={index}
               src={img}
@@ -404,7 +404,7 @@ function InfoCard({ onClose }) {
         }}
       >
         <a
-          href="https://twitter.com/PlankTON"
+          href="https://x.com/PlanktonCoinTon"
           target="_blank"
           rel="noopener noreferrer"
           style={{
