@@ -522,6 +522,19 @@ function App() {
     setIsPlaying(!isPlaying);
   };
 
+  const buttonStyle = {
+    margin: "5px",
+    padding: "10px 15px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    color: "white",
+    border: "none",
+    borderRadius: "25px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    outline: "none",
+  };
+
   return (
     <div
       style={{
@@ -559,14 +572,16 @@ function App() {
           left: "50%",
           transform: "translateX(-50%)",
           display: "flex",
+          flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "rgba(255, 255, 255, 0.2)",
           backdropFilter: "blur(10px)",
-          padding: "15px",
+          padding: "10px",
           borderRadius: "30px",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           zIndex: 10,
+          maxWidth: "90%",
         }}
       >
         {availableAnimations.map((anim) => (
@@ -574,23 +589,13 @@ function App() {
             key={anim.original}
             onClick={() => setCurrentAnimation(anim.original)}
             style={{
-              margin: "0 10px",
-              padding: "12px 24px",
-              fontSize: "18px",
-              fontWeight: "bold",
-              color: "white",
+              ...buttonStyle,
               backgroundColor:
                 currentAnimation === anim.original ? "#4CAF50" : "#3498db",
-              border: "none",
-              borderRadius: "25px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              textTransform: "capitalize",
               boxShadow:
                 currentAnimation === anim.original
                   ? "0 0 15px #4CAF50"
                   : "0 0 10px #3498db",
-              outline: "none",
             }}
           >
             {anim.display}
@@ -599,18 +604,9 @@ function App() {
         <button
           onClick={() => setShowInfo(true)}
           style={{
-            margin: "0 10px",
-            padding: "12px 24px",
-            fontSize: "18px",
-            fontWeight: "bold",
-            color: "white",
+            ...buttonStyle,
             backgroundColor: "#f39c12",
-            border: "none",
-            borderRadius: "25px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
             boxShadow: "0 0 10px #f39c12",
-            outline: "none",
           }}
         >
           ℹ️ Info
@@ -618,18 +614,9 @@ function App() {
         <button
           onClick={toggleAudio}
           style={{
-            margin: "0 10px",
-            padding: "12px 24px",
-            fontSize: "18px",
-            fontWeight: "bold",
-            color: "white",
+            ...buttonStyle,
             backgroundColor: "#e74c3c",
-            border: "none",
-            borderRadius: "25px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
             boxShadow: "0 0 10px #e74c3c",
-            outline: "none",
           }}
         >
           {isPlaying ? "🔈 Mute" : "🔊 Unmute"}
